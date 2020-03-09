@@ -39,23 +39,18 @@ console.log(arr.myReduce((acc, e) => Math.max(acc, e), -2));
 const debounce = (func, delay) => {
   let inDebounce;
   return function() {
-    const context = this;
-    const args = arguments;
     clearTimeout(inDebounce);
-    inDebounce = setTimeout(() => func.apply(context, args), delay);
+    inDebounce = setTimeout(() => func.apply(this, arguments), delay);
   }
 }
   
 //implement throttle function
 const throttle = (func, limit) => {
-  let inThrottle;
+  let inThrottle = true;
   return function() {
-    const args = arguments;
-    const context = this;
-    if (!inThrottle) {
-      func.apply(context, args);
-      inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
-    }
+    if (!inThrottle) return;
+    inThrottle = false;
+    func.apply(this, arguments);
+    setTimeout(() => inThrottle = true, limit);
   }
 }
