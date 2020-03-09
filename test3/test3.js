@@ -1,3 +1,4 @@
+var _ = require('lodash');
 //Implement js array filter function
 Array.prototype.myFilter = function(fun){
     res = [];
@@ -34,5 +35,27 @@ Array.prototype.myReduce = function(fun, initVal){
 console.log(arr.myReduce((acc, e) => acc + e, -2));
 console.log(arr.myReduce((acc, e) => Math.max(acc, e), -2));
 
-//Implement js array debounce function
-
+//Implement debounce function
+const debounce = (func, delay) => {
+  let inDebounce;
+  return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(inDebounce);
+    inDebounce = setTimeout(() => func.apply(context, args), delay);
+  }
+}
+  
+//implement throttle function
+const throttle = (func, limit) => {
+  let inThrottle;
+  return function() {
+    const args = arguments;
+    const context = this;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  }
+}
