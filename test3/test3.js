@@ -43,7 +43,7 @@ const debounce = (func, delay) => {
     inDebounce = setTimeout(() => func.apply(this, arguments), delay);
   }
 }
-  
+
 //implement throttle function
 const throttle = (func, limit) => {
   let inThrottle = true;
